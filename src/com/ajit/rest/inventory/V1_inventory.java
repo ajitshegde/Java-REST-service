@@ -3,6 +3,7 @@ package com.ajit.rest.inventory;
 import java.sql.*;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.*;
 
@@ -13,12 +14,12 @@ import com.ajit.util.ToJSON;
 public class V1_inventory {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String returnAllPcParts() throws Exception{
+	public Response returnAllPcParts() throws Exception{
 		
 		PreparedStatement query = null;
 		Connection conn = null;
 		String returnString = null;
-		
+		Response rsp = null;
 		try{
 			conn = OracleAJ.AjithRestConn().getConnection();
 			query = conn.prepareStatement("select * from proj.pc_parts");
@@ -31,6 +32,7 @@ public class V1_inventory {
 			query.close();
 			
 			returnString = json.toString();
+			rsp = Response.ok(returnString).build();
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -40,6 +42,6 @@ public class V1_inventory {
 				conn.close();
 		}
 		
-		return returnString;
+		return rsp;
 	}
 }
