@@ -2,6 +2,7 @@ package com.ajit.doa;
 
 import javax.naming.*;
 import javax.sql.*;
+import java.sql.Connection;
 public class OracleAJ {
 
 	private static DataSource Orc = null;
@@ -25,4 +26,16 @@ public class OracleAJ {
 		return Orc;
 	}
 
+	protected static Connection mySqlPcPartConn(){
+		Connection conn = null;
+		
+		try {
+			conn = AjithRestConn().getConnection();
+			return conn;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return conn;
+	}
 }

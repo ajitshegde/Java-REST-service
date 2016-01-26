@@ -7,7 +7,7 @@ import javax.ws.rs.core.Response;
 
 import org.codehaus.jettison.json.*;
 
-import com.ajit.doa.OracleAJ;
+import com.ajit.doa.*;
 import com.ajit.util.ToJSON;
 
 @Path("/v2/inventory")
@@ -19,7 +19,9 @@ public class V2_inventory {
 		JSONArray json = new JSONArray();
 		
 		try {
-			
+			Schema sch = new Schema();
+			json = sch.queryReturnBrandParts(brand);
+			returnString = json.toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Response.status(500).entity("Server not able to provide response").build();
