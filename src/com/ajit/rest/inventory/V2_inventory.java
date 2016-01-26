@@ -19,6 +19,8 @@ public class V2_inventory {
 		JSONArray json = new JSONArray();
 		
 		try {
+			if(brand==null)
+				return Response.status(400).entity("Please enter a brand").build();
 			Schema sch = new Schema();
 			json = sch.queryReturnBrandParts(brand);
 			returnString = json.toString();
