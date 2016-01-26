@@ -20,7 +20,27 @@ public class V2_inventory {
 		
 		try {
 			if(brand==null)
-				return Response.status(400).entity("Please enter a brand").build();
+				return Response.status(400).entity("Error: Please enter a brand").build();
+			Schema sch = new Schema();
+			json = sch.queryReturnBrandParts(brand);
+			returnString = json.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(500).entity("Server not able to provide response").build();
+		}
+		
+		return Response.ok(returnString).build();
+	}
+	
+	@Path("/{brand}")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response returnBrand(@PathParam("brand") String brand ) throws Exception{
+		String returnString = null;
+		JSONArray json = new JSONArray();
+		
+		try {
+			
 			Schema sch = new Schema();
 			json = sch.queryReturnBrandParts(brand);
 			returnString = json.toString();
